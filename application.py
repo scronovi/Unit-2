@@ -11,6 +11,18 @@ def clean_data(**kwargs):
     team_list = {team: [] for team in teams}
     avg_team_size = (total_players // total_teams)
 
+    #Cast experience as bool and height as int
+    for player in players.copy():
+
+        for k, v in list(player.items()):
+            if k == 'experience' and v == 'YES':
+                player[k] = bool(player[k])
+                player[v] = True
+            elif k == 'height':
+                player_height = v.split(' ')
+                player[v] = int(player_height[0])
+                print(player[v])
+
     for name, val in team_list.items():
 
         for player in players.copy():
@@ -23,8 +35,9 @@ def clean_data(**kwargs):
 
     return team_list
 
-cleaned_data = clean_data(players=constants.PLAYERS, teams=constants.TEAMS)
 
+cleaned_data = clean_data(players=constants.PLAYERS, teams=constants.TEAMS)
+print()
 
 # EXAMPLE------
 # BASKETBALL TEAM STATS TOOL
@@ -50,9 +63,10 @@ def main_menu():
     print('\nBASKETBALL TEAM STATS TOOL')
     print('\n---- MENU ----')
     user_input = input('\nPlease choose an option: \n1. Display team stats\n2. Quit\n\n')
-    teams_choice = input('\n1. Panthers\n2. Bandits\n3. Warriors\n\n')
+
     user_input
     if user_input == '1':
+        teams_choice = input('\n1. Panthers\n2. Bandits\n3. Warriors\n\n')
         teams_choice
         if teams_choice == '1':
             #show Panthers info
